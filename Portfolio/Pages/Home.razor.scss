@@ -1,0 +1,51 @@
+﻿.window {
+  top: 20px; left:20px; width: 960px; --w7-w-grad: initial;
+}
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  grid-row-gap: 0.5rem;
+
+  .title-bar-text {
+    grid-column: 1 / 2;
+    grid-row: 1;
+  }
+
+  .title-bar-controls {
+    grid-column: 2 / 3;
+    grid-row: 1;
+  }
+
+  .title-bar-extra {
+    grid-column: span 3;
+    grid-row: 2;
+    font-size: 0.8rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    button, button::before, button::after {
+      $btn-size: 26px;
+      width: $btn-size;
+      height: $btn-size;
+      min-width: $btn-size;
+      max-width: $btn-size;
+      padding: 0;
+      border-radius: 50%;
+    }
+
+    input {
+      height: 24px;
+      padding: 4px;
+    }
+  }
+}
+
+img.banner {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: bottom;
+}

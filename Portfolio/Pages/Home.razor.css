@@ -1,19 +1,50 @@
-﻿.custom-grid {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    grid-row-gap: 1rem;
+.window {
+  top: 20px;
+  left: 20px;
+  width: 960px;
+  --w7-w-grad: initial;
+}
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  grid-row-gap: 0.5rem;
 }
 .custom-grid .title-bar-text {
-    grid-column: 1 / 2;
-    grid-row: 1;
+  grid-column: 1/2;
+  grid-row: 1;
 }
 .custom-grid .title-bar-controls {
-    grid-column: 2 / 3;
-    grid-row: 1;
+  grid-column: 2/3;
+  grid-row: 1;
 }
 .custom-grid .title-bar-extra {
-    grid-column: 1 / 3;
-    grid-row: 2;
-    font-size: 0.8rem;
+  grid-column: span 3;
+  grid-row: 2;
+  font-size: 0.8rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
+.custom-grid .title-bar-extra button, .custom-grid .title-bar-extra button::before, .custom-grid .title-bar-extra button::after {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  max-width: 26px;
+  padding: 0;
+  border-radius: 50%;
+}
+.custom-grid .title-bar-extra input {
+  height: 24px;
+  padding: 4px;
+}
+
+img.banner {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+/*# sourceMappingURL=Home.razor.css.map */

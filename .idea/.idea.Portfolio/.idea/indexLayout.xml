@@ -3,6 +3,8 @@
   <component name="UserContentModel">
     <attachedFolders />
     <explicitIncludes />
-    <explicitExcludes />
+    <explicitExcludes>
+      <Path>Portfolio/Pages/Home.razor.css</Path>
+    </explicitExcludes>
   </component>
 </project>

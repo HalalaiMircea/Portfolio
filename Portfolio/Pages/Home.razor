@@ -1,40 +1,45 @@
 ﻿@page "/"
 
 <PageTitle>Home</PageTitle>
-@*box-shadow remove!*@
-<div class="window glass active m-1" style="max-width: 768px">
+
+<div class="window glass active">
     <div class="title-bar custom-grid">
         <div class="title-bar-text">Welcome Center</div>
-
         <div class="title-bar-controls">
             <button aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
             <button aria-label="Close"></button>
         </div>
         <div class="title-bar-extra">
-            <button disabled="@IsRootPage" @onclick="() => ShowContent(null)">◀ Back</button>
+            <button disabled="@IsRootPage" @onclick="() => ShowContent(null)">◀</button>
+            <button disabled>▶</button>
+            <input class="flex-grow-1" type="text" value="▶ Control Panel ▶ Welcome Center" readonly>
+            <input type="search" placeholder="Search">
         </div>
     </div>
-    @* <div class="title-bar"><button disabled="@IsRootPage" @onclick="() => ShowContent(null)">◀ Back</button></div> *@
-    <div class="window-body has-space">
-        @switch (currentContent)
-        {
-            case "about":
-                <p>👋 Hi, I'm John Doe, a full stack developer who loves C# and TypeScript!</p>
-                break;
-            case "github":
-                <p>Check out my <a href="https://github.com/HalalaiMircea" target="_blank">GitHub profile</a>.</p>
-                break;
-            case "work":
-                <p>Here’s some of my work: projects, apps, and experiments 🚀</p>
-                break;
-            default:
-                <div class="d-flex flex-wrap gap-4" style="font-size: 18px">
-                    <a href @onclick='() => ShowContent("about")'>About me</a>
-                    <a href @onclick='() => ShowContent("github")'>My Github</a>
-                    <a href @onclick='() => ShowContent("work")'>My Work</a>
-                </div>
-                break;
-        }
+    <div class="window-body">
+        <img class="banner" src="vista_wallpaper.webp" alt="">
+        <div class="p-2">
+            @switch (currentContent)
+            {
+                case "about":
+                    <p>👋 Hi, I'm John Doe, a full stack developer who loves C# and TypeScript!</p>
+                    break;
+                case "github":
+                    <p>Check out my <a href="https://github.com/HalalaiMircea" target="_blank">GitHub profile</a>.</p>
+                    break;
+                case "work":
+                    <p>Here’s some of my work: projects, apps, and experiments 🚀</p>
+                    break;
+                default:
+                    <div class="d-flex flex-wrap gap-4" style="font-size: 18px">
+                        <a href @onclick='() => ShowContent("about")'>About me</a>
+                        <a href @onclick='() => ShowContent("github")'>My Github</a>
+                        <a href @onclick='() => ShowContent("work")'>My Work</a>
+                    </div>
+                    break;
+            }
+        </div>
     </div>
 </div>
 

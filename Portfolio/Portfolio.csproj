@@ -5,11 +5,24 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
-
+<!--todo: gitignore *.razor.css generated files-->
     <ItemGroup>
         <PackageReference Include="DartSassBuilder" Version="1.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.16"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.16" PrivateAssets="all"/>
     </ItemGroup>
+    <ItemGroup>
+      <Content Update="Pages\Home.razor.css">
+        <DependentUpon>Home.razor.scss</DependentUpon>
+      </Content>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <DartSassOutputStyle>compressed</DartSassOutputStyle>
+        <DartSassOutputStyle Condition="'$(Configuration)' == 'Debug'">expanded</DartSassOutputStyle>
+
+        <DartSassOutputLevel>verbose</DartSassOutputLevel>
+        <DartSassMessageLevel>High</DartSassMessageLevel>
+    </PropertyGroup>
 
 </Project>
