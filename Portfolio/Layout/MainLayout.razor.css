@@ -1,3 +1,4 @@
+/*
 .page {
     position: relative;
     display: flex;
@@ -8,10 +9,6 @@ main {
     flex: 1;
     margin: 0;
     height: 100vh;
-    background-image: url('vista_wallpaper_4k.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 .sidebar {
@@ -81,3 +78,4 @@ main {
         padding-right: 1.5rem !important;
     }
 }
+*/

@@ -18,7 +18,9 @@
         </div>
     </div>
     <div class="window-body">
-        <img class="banner" src="vista_wallpaper.webp" alt="">
+        <div class="image-container">
+            <span class="text-overlay">welcome</span>
+        </div>
         <div class="p-2">
             @switch (currentContent)
             {
@@ -32,10 +34,16 @@
                     <p>Here’s some of my work: projects, apps, and experiments 🚀</p>
                     break;
                 default:
-                    <div class="d-flex flex-wrap gap-4" style="font-size: 18px">
-                        <a href @onclick='() => ShowContent("about")'>About me</a>
-                        <a href @onclick='() => ShowContent("github")'>My Github</a>
-                        <a href @onclick='() => ShowContent("work")'>My Work</a>
+                    <div class="d-flex flex-wrap gap-4">
+                        <button class="link-button" @onclick='() => ShowContent("about")'>
+                            <img src="img/icon-userfolder.png" alt="" />About me
+                        </button>
+                        <button class="link-button" @onclick='() => ShowContent("github")'>
+                            <img src="img/github-mark.svg" alt="" />My Github
+                        </button>
+                        <button class="link-button" @onclick='() => ShowContent("work")'>
+                            <img src="img/Icon-CMD.png" alt="" />My work
+                        </button>
                     </div>
                     break;
             }
