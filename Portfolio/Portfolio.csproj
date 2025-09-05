@@ -5,16 +5,18 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
-<!--todo: gitignore *.razor.css generated files-->
+    <!--todo: gitignore *.razor.css generated files-->
     <ItemGroup>
-        <PackageReference Include="DartSassBuilder" Version="1.1.0" />
+        <PackageReference Include="DartSassBuilder" Version="1.1.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.16"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.16" PrivateAssets="all"/>
+        <PackageReference Include="KristofferStrube.Blazor.DOM" Version="0.3.0" />
     </ItemGroup>
+
     <ItemGroup>
-      <Content Update="Pages\Home.razor.css">
-        <DependentUpon>Home.razor.scss</DependentUpon>
-      </Content>
+        <Content Update="Pages\Home.razor.css">
+            <DependentUpon>Home.razor.scss</DependentUpon>
+        </Content>
     </ItemGroup>
 
     <PropertyGroup>

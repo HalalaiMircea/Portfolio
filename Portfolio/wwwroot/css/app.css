@@ -5,6 +5,7 @@ html, body {
 body {
     height: 100vh;
     background: url('../vista_wallpaper_4k.png') no-repeat center / cover;
+    overflow: hidden;
 }
 
 h1:focus {

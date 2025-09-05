@@ -1,7 +1,4 @@
 .window {
-  top: 20px;
-  left: 20px;
-  width: 960px;
   --w7-w-grad: initial;
 }
 
@@ -14,6 +11,7 @@
 .custom-grid .title-bar-text {
   grid-column: 1/2;
   grid-row: 1;
+  user-select: none;
 }
 .custom-grid .title-bar-controls {
   grid-column: 2/3;
@@ -42,7 +40,7 @@
 
 .image-container {
   position: relative; /* allows absolute positioning inside */
-  background: url("vista_wallpaper.webp") no-repeat bottom/cover;
+  background: url("img/vista-login.png") no-repeat center/cover;
   width: 100%;
   height: 200px;
 }
@@ -51,7 +49,7 @@
   position: absolute;
   bottom: 0;
   right: 6px;
-  color: rgba(100, 100, 100, 0.5);
+  color: rgba(212, 212, 212, 0.5);
   font-size: 64px;
   line-height: 1;
 }
@@ -72,5 +70,3 @@
   height: 32px;
   margin-right: 8px;
 }
-
-/*# sourceMappingURL=Home.razor.css.map */

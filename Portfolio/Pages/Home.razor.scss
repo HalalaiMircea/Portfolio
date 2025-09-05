@@ -1,5 +1,5 @@
 ﻿.window {
-  top: 20px; left:20px; width: 960px; --w7-w-grad: initial;
+  --w7-w-grad: initial;
 }
 
 .custom-grid {
@@ -11,6 +11,7 @@
   .title-bar-text {
     grid-column: 1 / 2;
     grid-row: 1;
+    user-select: none;
   }
 
   .title-bar-controls {
@@ -22,6 +23,7 @@
     grid-column: span 3;
     grid-row: 2;
     font-size: 0.8rem;
+
     display: flex;
     gap: 0.5rem;
     align-items: center;
@@ -43,18 +45,20 @@
   }
 }
 
+$bannerHeight: 200px;
+
 .image-container {
   position: relative; /* allows absolute positioning inside */
-  background: url("vista_wallpaper.webp") no-repeat bottom / cover;
+  background: url("img/vista-login.png") no-repeat center / cover;
   width: 100%;
-  height: 200px;
+  height: $bannerHeight;
 
   .text-overlay {
     user-select: none;
     position: absolute;
     bottom: 0;
     right: 6px;
-    color: rgba(100, 100, 100, .5);
+    color: rgba(212, 212, 212, 50%);
     font-size: 64px;
     line-height: 1;
   }
@@ -71,7 +75,7 @@
     border: 1px solid deepskyblue !important;
     text-decoration: underline;
   }
-  
+
   img {
     width: 32px;
     height: 32px;

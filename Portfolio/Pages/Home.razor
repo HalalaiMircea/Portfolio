@@ -1,14 +1,15 @@
 ﻿@page "/"
+@using System.Globalization
 
 <PageTitle>Home</PageTitle>
 
-<div class="window glass active">
+<div class="window glass active" @ref="windowRef" style="@windowStyle.ToString()">
     <div class="title-bar custom-grid">
         <div class="title-bar-text">Welcome Center</div>
         <div class="title-bar-controls">
             <button aria-label="Minimize"></button>
-            <button aria-label="Maximize"></button>
-            <button aria-label="Close"></button>
+            <button aria-label="Maximize" @onclick="ToggleWindowMaximize"></button>
+            <button aria-label="Close" disabled></button>
         </div>
         <div class="title-bar-extra">
             <button disabled="@IsRootPage" @onclick="() => ShowContent(null)">◀</button>
@@ -51,12 +52,106 @@
     </div>
 </div>
 
+@inject IJSRuntime JS
+
 @code {
+    private ElementReference windowRef;
+    private IJSObjectReference module = null!;
+
     private string? currentContent = null;
     private bool IsRootPage => currentContent == null;
+
+    private WindowState _windowState = WindowState.Restored;
+    private WindowState windowState
+    {
+        get => _windowState;
+        set
+        {
+            _windowState = value;
+            if (value == WindowState.Maximized)
+            {
+                lastTopLeft = BoxStyle.FromDomApi((IJSInProcessObjectReference) module, windowRef);
+                Console.WriteLine("LAST TOP LEFT "+lastTopLeft);
+                windowStyle = new BoxStyle {Top = "0", Left = "0", Width = "100vw", Height = "100vh"};
+            }
+            else if (value == WindowState.Restored)
+            {
+                Console.WriteLine("LAST TOP LEFT "+lastTopLeft);
+                windowStyle = lastTopLeft!;
+            }
+            Console.WriteLine($"STYLE: {windowStyle}");
+        }
+    }
+
+    private BoxStyle? lastTopLeft = null;
+    private BoxStyle windowStyle = new() {Top = "20px", Left = "20px", Width = "960px", Height = "auto"};
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            module = await JS.ImportScopedModule<Home>();
+            await module.InvokeVoidAsync("makeWindowDraggable", windowRef);
+        }
+    }
 
     private void ShowContent(string? content)
     {
         currentContent = content;
     }
+
+    private void ToggleWindowMaximize()
+    {
+        windowState = windowState switch
+        {
+            WindowState.Restored => WindowState.Maximized,
+            WindowState.Maximized => WindowState.Restored,
+            _ => windowState
+        };
+        // await module.InvokeVoidAsync("maximizeWindow", windowRef);
+    }
+
+    private enum WindowState
+    {
+        Minimized, Maximized, Restored
+    }
+
+    public class BoxStyle
+    {
+        public string? Top { get; set; }
+        public string? Left { get; set; }
+        public string? Width { get; set; }
+        public string? Height { get; set; }
+
+        public static BoxStyle FromDomApi(IJSInProcessObjectReference js, ElementReference elRef)
+        {
+            var rect = js.Invoke<DomRect>("getRectForEl", elRef);
+            var ivc = CultureInfo.InvariantCulture;
+            return new BoxStyle
+            {
+                Top = rect.Top.ToString(ivc) + "px",
+                Left = rect.Left.ToString(ivc) + "px",
+                Width = rect.Width.ToString(ivc) + "px",
+                Height = rect.Height.ToString(ivc) + "px"
+            };
+        }
+
+        public override string ToString() => $"top:{Top}; left:{Left}; width:{Width}; height:{Height};";
+
+        public BoxStyle Clone() => new()
+        {
+            Top = this.Top,
+            Left = this.Left,
+            Width = this.Width,
+            Height = this.Height
+        };
+
+        private record DomRect(
+            double Top,
+            double Left,
+            double Width,
+            double Height
+        );
+    }
+    
 }
