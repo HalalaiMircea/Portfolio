@@ -6,10 +6,10 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
-    <PropertyGroup>
+<!--    <PropertyGroup>
         <StaticWebAssetBasePath>wwwroot</StaticWebAssetBasePath>
         <PublishTrimmed>false</PublishTrimmed>
-    </PropertyGroup>
+    </PropertyGroup>-->
 
     <!--todo: gitignore *.razor.css generated files-->
     <ItemGroup>
