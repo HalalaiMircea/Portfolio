@@ -5,6 +5,12 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
+
+    <PropertyGroup>
+        <StaticWebAssetBasePath>wwwroot</StaticWebAssetBasePath>
+        <PublishTrimmed>false</PublishTrimmed>
+    </PropertyGroup>
+
     <!--todo: gitignore *.razor.css generated files-->
     <ItemGroup>
         <PackageReference Include="DartSassBuilder" Version="1.1.0"/>
