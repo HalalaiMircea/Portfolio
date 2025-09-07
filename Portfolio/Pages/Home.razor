@@ -1,7 +1,7 @@
 ﻿@page "/"
 @using System.Globalization
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Portfolio</PageTitle>
 
 <div class="window glass active" @ref="windowRef" style="@windowStyle.ToString()">
     <div class="title-bar custom-grid">
@@ -14,11 +14,12 @@
         <div class="title-bar-extra">
             <button disabled="@IsRootPage" @onclick="() => ShowContent(null)">◀</button>
             <button disabled>▶</button>
-            <input class="flex-grow-1" type="text" value="▶ Control Panel ▶ Welcome Center" readonly>
+            <input class="flex-grow-1" type="text"
+                   value="▶ Control Panel ▶ Welcome Center @(IsRootPage ? "" : "▶ " + currentContent)" readonly>
             <input type="search" placeholder="Search">
         </div>
     </div>
-    <div class="window-body">
+    <div class="window-body has-scrollbar">
         <div class="image-container">
             <span class="text-overlay">welcome</span>
         </div>
@@ -26,7 +27,7 @@
             @switch (currentContent)
             {
                 case "about":
-                    <p>👋 Hi, I'm John Doe, a full stack developer who loves C# and TypeScript!</p>
+                    <AboutMe />
                     break;
                 case "github":
                     <p>Check out my <a href="https://github.com/HalalaiMircea" target="_blank">GitHub profile</a>.</p>
@@ -58,7 +59,7 @@
     private ElementReference windowRef;
     private IJSObjectReference module = null!;
 
-    private string? currentContent = null;
+    private string? currentContent;
     private bool IsRootPage => currentContent == null;
 
     private WindowState _windowState = WindowState.Restored;
@@ -70,21 +71,18 @@
             _windowState = value;
             if (value == WindowState.Maximized)
             {
-                lastTopLeft = BoxStyle.FromDomApi((IJSInProcessObjectReference) module, windowRef);
-                Console.WriteLine("LAST TOP LEFT "+lastTopLeft);
+                lastWindowStyle = BoxStyle.FromDomApi((IJSInProcessObjectReference) module, windowRef);
                 windowStyle = new BoxStyle {Top = "0", Left = "0", Width = "100vw", Height = "100vh"};
             }
             else if (value == WindowState.Restored)
             {
-                Console.WriteLine("LAST TOP LEFT "+lastTopLeft);
-                windowStyle = lastTopLeft!;
+                windowStyle = lastWindowStyle!;
             }
-            Console.WriteLine($"STYLE: {windowStyle}");
         }
     }
 
-    private BoxStyle? lastTopLeft = null;
-    private BoxStyle windowStyle = new() {Top = "20px", Left = "20px", Width = "960px", Height = "auto"};
+    private BoxStyle? lastWindowStyle;
+    private BoxStyle windowStyle = new() {Top = "20px", Left = "20px", Width = "960px", Height = "960px"};
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -108,7 +106,6 @@
             WindowState.Maximized => WindowState.Restored,
             _ => windowState
         };
-        // await module.InvokeVoidAsync("maximizeWindow", windowRef);
     }
 
     private enum WindowState

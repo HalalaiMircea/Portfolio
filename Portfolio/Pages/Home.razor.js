@@ -1,13 +1,13 @@
 ﻿export function makeWindowDraggable(windowEl) {
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    let distSinceLastX = 0, distSinceLastY = 0, prevX = 0, prevY = 0;
 
     windowEl.querySelector(".title-bar").onmousedown = (e) => {
         if (e.button !== 0) return;
         if (e.target.closest(".title-bar-controls, .title-bar-extra, button, input")) return;
         e.preventDefault();
 
-        pos3 = e.clientX;
-        pos4 = e.clientY;
+        prevX = e.clientX;
+        prevY = e.clientY;
         document.onmouseup = () => {
             document.onmouseup = null;
             document.onmousemove = null;
@@ -17,12 +17,15 @@
 
     function elementDrag(e) {
         e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        windowEl.style.top = (windowEl.offsetTop - pos2) + "px";
-        windowEl.style.left = (windowEl.offsetLeft - pos1) + "px";
+        if (e.clientX < 0 || e.clientX > window.innerWidth) return;
+        if (e.clientY < 0 || e.clientY > window.innerHeight) return;
+
+        distSinceLastX = prevX - e.clientX;
+        distSinceLastY = prevY - e.clientY;
+        windowEl.style.top = (windowEl.offsetTop - distSinceLastY) + "px";
+        windowEl.style.left = (windowEl.offsetLeft - distSinceLastX) + "px";
+        prevX = e.clientX;
+        prevY = e.clientY;
     }
 
 }

@@ -1,5 +1,12 @@
 ﻿.window {
   --w7-w-grad: initial;
+  display: flex;
+  flex-direction: column;
+
+  .window-body {
+    height: 100%;
+    overflow: auto;
+  }
 }
 
 .custom-grid {
@@ -36,6 +43,7 @@
       max-width: $btn-size;
       padding: 0;
       border-radius: 50%;
+      user-select: none;
     }
 
     input {

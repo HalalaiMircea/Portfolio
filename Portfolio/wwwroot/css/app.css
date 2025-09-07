@@ -8,6 +8,10 @@ body {
     overflow: hidden;
 }
 
+p {
+    font-size: 14px;
+}
+
 h1:focus {
     outline: none;
 }
@@ -107,3 +111,4 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+/*TODO: do win7 progress bar for loading instead*/
