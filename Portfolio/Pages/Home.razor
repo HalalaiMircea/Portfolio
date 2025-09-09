@@ -15,35 +15,35 @@
             <button disabled="@IsRootPage" @onclick="() => ShowContent(null)">◀</button>
             <button disabled>▶</button>
             <input class="flex-grow-1" type="text"
-                   value="▶ Control Panel ▶ Welcome Center @(IsRootPage ? "" : "▶ " + currentContent)" readonly>
+                   value="▶ Control Panel ▶ Welcome Center @(IsRootPage ? "" : "▶ " + currentContent?.GetFriendlyName())" readonly>
             <input type="search" placeholder="Search">
         </div>
     </div>
     <div class="window-body has-scrollbar">
         <div class="image-container">
-            <span class="text-overlay">welcome</span>
+            <span class="text-overlay">@(currentContent?.GetFriendlyName().ToLower() ?? "welcome")</span>
         </div>
         <div class="p-2">
             @switch (currentContent)
             {
-                case "about":
+                case Pages.AboutMe:
                     <AboutMe />
                     break;
-                case "github":
+                case Pages.MyGithub:
                     <p>Check out my <a href="https://github.com/HalalaiMircea" target="_blank">GitHub profile</a>.</p>
                     break;
-                case "work":
+                case Pages.MyWork:
                     <p>Here’s some of my work: projects, apps, and experiments 🚀</p>
                     break;
                 default:
                     <div class="d-flex flex-wrap gap-4">
-                        <button class="link-button" @onclick='() => ShowContent("about")'>
+                        <button class="link-button" @onclick='() => ShowContent(Pages.AboutMe)'>
                             <img src="img/icon-userfolder.png" alt="" />About me
                         </button>
-                        <button class="link-button" @onclick='() => ShowContent("github")'>
+                        <button class="link-button" @onclick='() => ShowContent(Pages.MyGithub)'>
                             <img src="img/github-mark.svg" alt="" />My Github
                         </button>
-                        <button class="link-button" @onclick='() => ShowContent("work")'>
+                        <button class="link-button" @onclick='() => ShowContent(Pages.MyWork)'>
                             <img src="img/Icon-CMD.png" alt="" />My work
                         </button>
                     </div>
@@ -53,15 +53,19 @@
     </div>
 </div>
 
+@implements IDisposable
 @inject IJSRuntime JS
 
 @code {
     private ElementReference windowRef;
-    private IJSObjectReference module = null!;
+    private IJSInProcessObjectReference module = null!;
+    private DotNetObjectReference<Home>? dotNetObject;
 
-    private string? currentContent;
+    private Pages? currentContent;
     private bool IsRootPage => currentContent == null;
 
+    [JSInvokable]
+    public WindowState GetWindowState() => windowState;
     private WindowState _windowState = WindowState.Restored;
     private WindowState windowState
     {
@@ -71,7 +75,7 @@
             _windowState = value;
             if (value == WindowState.Maximized)
             {
-                lastWindowStyle = BoxStyle.FromDomApi((IJSInProcessObjectReference) module, windowRef);
+                lastWindowStyle = BoxStyle.FromDomApi(module, windowRef);
                 windowStyle = new BoxStyle {Top = "0", Left = "0", Width = "100vw", Height = "100vh"};
             }
             else if (value == WindowState.Restored)
@@ -88,12 +92,19 @@
     {
         if (firstRender)
         {
-            module = await JS.ImportScopedModule<Home>();
+            module = (IJSInProcessObjectReference) await JS.ImportScopedModule<Home>();
+            dotNetObject = DotNetObjectReference.Create(this);
+            module.InvokeVoid("registerDotNetHelper", dotNetObject);
             await module.InvokeVoidAsync("makeWindowDraggable", windowRef);
         }
     }
 
-    private void ShowContent(string? content)
+    public void Dispose()
+    {
+        dotNetObject?.Dispose();
+    }
+
+    private void ShowContent(Pages? content)
     {
         currentContent = content;
     }
@@ -107,10 +118,22 @@
             _ => windowState
         };
     }
-
-    private enum WindowState
+    
+    private enum Pages
     {
-        Minimized, Maximized, Restored
+        [FriendlyName("About me")]
+        AboutMe,
+
+        [FriendlyName("My Github")]
+        MyGithub,
+
+        [FriendlyName("My work")]
+        MyWork
+    }
+
+    public enum WindowState
+    {
+        Minimized = 0, Maximized = 1, Restored = 2
     }
 
     public class BoxStyle
@@ -150,5 +173,4 @@
             double Height
         );
     }
-    
 }

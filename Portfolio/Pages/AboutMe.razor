@@ -1,21 +1,18 @@
 ﻿<PageTitle>About me</PageTitle>
 
-<div class="d-flex gap-3">
-    <div class="window glass d-flex gap-3">
-        <img
-            style="width: 300px; margin: 6px; border-radius: 6px"
-            src="https://media.licdn.com/dms/image/v2/D4D35AQEBQR_La44IlQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1713992920227?e=1757858400&v=beta&t=16P9CYUrgSTFzC9gJ-toT1iWoy1xoLncxYz3sd7uGiI"
-            alt="">
-    </div>
-    <section class="flex-grow-1">
-        <h3>About Me</h3>
-        <p>
-            Hi, I'm <b>Mircea-Costin Hălălai</b>, a software engineer with a background in Fullstack and Android
-            development. I have a bachelor in Computers and Information Technology from the University of Bucharest,
-            and I love making tools and applications that people find useful.
-        </p>
-    </section>
+<div class="window glass float-start me-3 mb-2" style="margin-top: calc((-250px - 12px) / 2)">
+    <img
+        style="width: 250px; height: 250px; margin: 6px; border-radius: 6px;"
+        src="https://media.licdn.com/dms/image/v2/D4D35AQEBQR_La44IlQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1713992920227?e=1757858400&v=beta&t=16P9CYUrgSTFzC9gJ-toT1iWoy1xoLncxYz3sd7uGiI"
+        alt="">
 </div>
+
+<p>
+    Hi, I'm <b>Mircea-Costin Hălălai</b>, a software engineer based in <b>Bucharest, Romania</b> with a background in
+    .NET Fullstack and Android. I have a bachelor in Computers and Information Technology from the University of
+    Bucharest, and I love making tools and applications that people find useful.
+</p>
+
 <h3>What made you choose this website design?</h3>
 <p>
     For my personal projects I like coming up with wild and unique ideas. One day I stumbled upon
@@ -26,6 +23,25 @@
     portfolio site based on 7.css, shooting two birds with one stone by using Blazor WebAssembly - a tech I had been
     eager to tryout in the past.
 </p>
+<br>
+<h3>My interests and hobbies</h3>
+<p>
+    Besides coding and keeping up with software technologies, in my free time I like to <i>pwn noobs</i> in competitive
+    eSports games with my friends group. Online shooters are my primary choice. When we get bored of that, we start up
+    our flavour-of-the-month party/co-op game. During these sessions, a little troll doesn't hurt. Other times I like to
+    immerse myself in cinematic, story driven games. I also have a few Real-time-strategy games under my belt.
+</p>
+<p>
+    And when the planets align, I throw LAN parties with my friends so we can frag each other face to face.
+    Trash talking just feels different IRL.
+</p>
+<div class="d-flex flex-wrap gap-2">
+    @foreach (var url in imageUrls)
+    {
+        <img src=@url alt="" style="height: 200px; border-radius: 6px">
+    }
+</div>
 
 @code {
+    private string[] imageUrls = ["img/lan_day.jpg", "img/lan_night.jpg"];
 }

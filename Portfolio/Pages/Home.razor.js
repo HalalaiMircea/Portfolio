@@ -1,10 +1,18 @@
-﻿export function makeWindowDraggable(windowEl) {
+﻿
+let _dotnetHelper = null;
+
+export function registerDotNetHelper(dotnetHelper) {
+    _dotnetHelper = dotnetHelper;
+}
+
+export function makeWindowDraggable(windowEl) {
     let distSinceLastX = 0, distSinceLastY = 0, prevX = 0, prevY = 0;
 
     windowEl.querySelector(".title-bar").onmousedown = (e) => {
         if (e.button !== 0) return;
         if (e.target.closest(".title-bar-controls, .title-bar-extra, button, input")) return;
         e.preventDefault();
+        if (_dotnetHelper.invokeMethod("GetWindowState") === 1) return;
 
         prevX = e.clientX;
         prevY = e.clientY;
@@ -39,13 +47,3 @@ export function getRectForEl(el) {
         height: rect.height
     };
 }
-
-/*
-export function maximizeWindow(windowEl) {
-    windowEl.style.top = "0px";
-    windowEl.style.left = "0px";
-    
-    windowEl.style.width = "100vw";
-    windowEl.style.height = "100vh";
-}
-*/
