@@ -61,6 +61,9 @@ $bannerHeight: 200px;
   width: 100%;
   height: $bannerHeight;
 
+  display: flex;
+  align-items: center;
+
   .text-overlay {
     user-select: none;
     position: absolute;
@@ -68,6 +71,17 @@ $bannerHeight: 200px;
     right: 6px;
     color: rgba(212, 212, 212, 50%);
     font-size: 64px;
+  }
+  
+  p {
+    font-size: medium;
+    color: white;
+    text-shadow: black 2px 2px 6px;
+  }
+  
+  img {
+    height: 65%;
+    margin: 0 16px 0 16px;
   }
 }
 

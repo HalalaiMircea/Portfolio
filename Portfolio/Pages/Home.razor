@@ -21,6 +21,11 @@
     </div>
     <div class="window-body has-scrollbar">
         <div class="image-container">
+            @if (IsRootPage)
+            {
+                <img src="img/windows-computer.png" alt="">
+                <p>Get started by clicking on any of the items below!</p>
+            }
             <span class="text-overlay">@(currentContent?.GetFriendlyName().ToLower() ?? "welcome")</span>
         </div>
         <div class="p-2">
@@ -33,18 +38,18 @@
                     <p>Check out my <a href="https://github.com/HalalaiMircea" target="_blank">GitHub profile</a>.</p>
                     break;
                 case Pages.MyWork:
-                    <p>Here’s some of my work: projects, apps, and experiments 🚀</p>
+                    <MyWork />
                     break;
                 default:
                     <div class="d-flex flex-wrap gap-4">
                         <button class="link-button" @onclick='() => ShowContent(Pages.AboutMe)'>
-                            <img src="img/icon-userfolder.png" alt="" />About me
+                            <img src="img/icon-userfolder.png" alt=""/>Read about me
                         </button>
                         <button class="link-button" @onclick='() => ShowContent(Pages.MyGithub)'>
-                            <img src="img/github-mark.svg" alt="" />My Github
+                            <img src="img/github-mark.svg" alt=""/>Browse my Github
                         </button>
                         <button class="link-button" @onclick='() => ShowContent(Pages.MyWork)'>
-                            <img src="img/Icon-CMD.png" alt="" />My work
+                            <img src="img/Icon-CMD.png" alt=""/>View my work
                         </button>
                     </div>
                     break;
@@ -86,7 +91,7 @@
     }
 
     private BoxStyle? lastWindowStyle;
-    private BoxStyle windowStyle = new() {Top = "20px", Left = "20px", Width = "960px", Height = "960px"};
+    private BoxStyle windowStyle = new() {Top = "20px", Left = "20px", Width = "960px", Height = "768px"};
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
