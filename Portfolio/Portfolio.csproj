@@ -18,6 +18,7 @@
         <Content Update="Pages\Home.razor.css">
             <DependentUpon>Home.razor.scss</DependentUpon>
         </Content>
+        <Content Remove="wwwroot\raw-svg\**" />
     </ItemGroup>
 
     <PropertyGroup>

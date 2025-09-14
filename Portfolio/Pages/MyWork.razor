@@ -1,7 +1,16 @@
-﻿<PageTitle>My Work</PageTitle>
+﻿@using Portfolio.Services
 
-<h1>My Work</h1>
-@*TODO add shields.io badges with techs*@
+<PageTitle>My Work</PageTitle>
 
+<h5>Here's some of the technologies I've used at some point (in no particular order)</h5>
+<hr>
+<div class="d-flex flex-wrap gap-2">
+    @foreach (var id in iconReg.IconIds)
+    {
+        @iconReg.GetIcon(id, "30px")
+    }
+</div>
+
+@inject IconRegistry iconReg;
 @code {
 }
