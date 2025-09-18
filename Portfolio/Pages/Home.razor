@@ -1,60 +1,61 @@
 ﻿@page "/"
 @using System.Globalization
 
-<PageTitle>Portfolio</PageTitle>
+<PageTitle>Welcome Center</PageTitle>
 
 <div class="window glass active" @ref="windowRef" style="@windowStyle.ToString()">
     <div class="title-bar custom-grid">
         <div class="title-bar-text">Welcome Center</div>
         <div class="title-bar-controls">
             <button aria-label="Minimize"></button>
-            <button aria-label="Maximize" @onclick="ToggleWindowMaximize"></button>
+            <button aria-label=@(windowState == WindowState.Restored ? "Maximize" : "Restore") @onclick="ToggleWindowMaximize"></button>
             <button aria-label="Close" disabled></button>
         </div>
         <div class="title-bar-extra">
             <button disabled="@IsRootPage" @onclick="() => ShowContent(null)">◀</button>
             <button disabled>▶</button>
             <input class="flex-grow-1" type="text"
-                   value="▶ Control Panel ▶ Welcome Center @(IsRootPage ? "" : "▶ " + currentContent?.GetFriendlyName())" readonly>
+                   value="▶ Control Panel ▶ @(IsRootPage ? "Welcome Center" : currentContent?.GetFriendlyName())" readonly>
             <input type="search" placeholder="Search">
         </div>
     </div>
     <div class="window-body has-scrollbar">
-        <div class="image-container">
-            @if (IsRootPage)
-            {
-                <img src="img/windows-computer.png" alt="">
-                <p>Get started by clicking on any of the items below!</p>
-            }
-            <span class="text-overlay">@(currentContent?.GetFriendlyName().ToLower() ?? "welcome")</span>
-        </div>
-        <div class="p-2">
-            @switch (currentContent)
-            {
-                case Pages.AboutMe:
-                    <AboutMe />
-                    break;
-                case Pages.MyGithub:
-                    <p>Check out my <a href="https://github.com/HalalaiMircea" target="_blank">GitHub profile</a>.</p>
-                    break;
-                case Pages.MyWork:
-                    <MyWork />
-                    break;
-                default:
-                    <div class="d-flex flex-wrap gap-4">
-                        <button class="link-button" @onclick='() => ShowContent(Pages.AboutMe)'>
-                            <img src="img/icon-userfolder.png" alt=""/>Read about me
-                        </button>
-                        <button class="link-button" @onclick='() => ShowContent(Pages.MyGithub)'>
-                            <img src="img/github-mark.svg" alt=""/>Browse my Github
-                        </button>
-                        <button class="link-button" @onclick='() => ShowContent(Pages.MyWork)'>
-                            <img src="img/Icon-CMD.png" alt=""/>View my work
-                        </button>
-                    </div>
-                    break;
-            }
-        </div>
+        @if (IsRootPage || currentContent == Pages.AboutMe)
+        {
+            <div class="image-container">
+                @if (IsRootPage)
+                {
+                    <img src="img/windows-computer.png" alt="">
+                    <p>Get started by clicking on any of the items below!</p>
+                }
+                <span class="text-overlay">@(currentContent?.GetFriendlyName().ToLower() ?? "welcome")</span>
+            </div>
+        }
+        @switch (currentContent)
+        {
+            case Pages.AboutMe:
+                <div class="p-2"><AboutMe/></div>
+                break;
+            case Pages.MyGithub:
+                <p>Check out my <a href="https://github.com/HalalaiMircea" target="_blank">GitHub profile</a>.</p>
+                break;
+            case Pages.MyWork:
+                <MyWork/>
+                break;
+            default:
+                <div class="d-flex flex-wrap gap-4 p-2">
+                    <button class="link-button" @onclick='() => ShowContent(Pages.AboutMe)'>
+                        <img src="img/icon-userfolder.png" alt=""/>Read about me
+                    </button>
+                    <button class="link-button" @onclick='() => ShowContent(Pages.MyGithub)'>
+                        <img src="img/github-mark.svg" alt=""/>Browse my Github
+                    </button>
+                    <button class="link-button" @onclick='() => ShowContent(Pages.MyWork)'>
+                        <img src="img/Icon-CMD.png" alt=""/>View my work
+                    </button>
+                </div>
+                break;
+        }
     </div>
 </div>
 
@@ -123,7 +124,7 @@
             _ => windowState
         };
     }
-    
+
     private enum Pages
     {
         [FriendlyName("About me")]

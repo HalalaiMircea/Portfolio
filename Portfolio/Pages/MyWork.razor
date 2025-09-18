@@ -1,16 +1,44 @@
 ﻿@using Portfolio.Services
+@using Portfolio.Common
 
 <PageTitle>My Work</PageTitle>
 
-<h5>Here's some of the technologies I've used at some point (in no particular order)</h5>
-<hr>
-<div class="d-flex flex-wrap gap-2">
-    @foreach (var id in iconReg.IconIds)
-    {
-        @iconReg.GetIcon(id, "30px")
-    }
+<div class="d-flex h-100">
+    <nav class="flex-shrink-0 p-2">
+
+    </nav>
+    @*<div class="flex-grow-1 p-2">
+        <h5 class="text-center">Here's some of the technologies I've used at some point</h5>
+        <hr>
+        <div class="d-flex flex-wrap gap-2">
+            @foreach (var id in iconReg.IconIds)
+            {
+                @iconReg.GetIcon(id, "30px")
+            }
+        </div>
+    </div>*@
+    <div class="flex-grow-1 p-2 d-flex flex-column">
+        <MediaCarousel ImagesSrc="images" />
+        <h4>Description</h4>
+        <p>This project is so cool because bla blah</p>
+
+        <h4>Tech stack</h4>
+        <p>my Technologies</p>
+    </div>
 </div>
 
 @inject IconRegistry iconReg;
+
 @code {
+
+    /*TODO: make data structure mapped to left nav menu*/
+
+    private string[] images =
+    [
+        "profile.jpeg",
+        "lan_day.jpg",
+        "lan_night.jpg",
+        "https://raw.githubusercontent.com/HalalaiMircea/CG-Course/master/Project3D/img/vid-thumbnail.png"
+    ];
+
 }
