@@ -1,0 +1,42 @@
+﻿# $schema: ./myworkcatalog.schema.json
+Hackathons:
+  - Name: Post It
+    Media:
+      - Url: "asdasd"
+    Description: |
+      This was the project name from a hackathon organized by a company for hiring interns.
+      They specialized in native mobile applications, so we had to make a "Post-it notes" app using their API,
+      and Design specifications in terms of UI/UX. I didn't get hired by them
+    GithubUrl: "https://github.com/HalalaiMircea/Post-It"
+    BadgeIds: [ "Kotlin","Android" ]
+
+Personal Projects:
+  - Name: TestReportsViewer
+    Media:
+      - Url: ""
+    Description: |
+      I created this tool for previewing test reports at work before pushing to dev.
+      The Unit test output window in Rider doesn't support HTML rendering, only plaintext,
+       which made it very difficult to see the results, especially if a report had long tables.
+       In those cases I had to wait up to 10 minutes before I could see the results.
+      - Live html content updates in the selected report as the test client logs
+      - Live updates also work with HTML tables rows
+      - Auto scroll to bottom as new logs are injected
+      - Reports are managed by the app and save on disk in AppData\Roaming folder, for later reviewing
+      - Example C# client class, using NamePipes IPC
+      - Powered by WPF, Edge WebView2 and ASP.net
+    GithubUrl: "https://github.com/HalalaiMircea/TestReportsViewer"
+    BadgeIds: [ "csharp","NET" ]
+
+University Projects:
+  - Name: 3D Model Viewer (CG Course)
+    Media:
+      - Url: https://drive.google.com/file/d/1BwHnhlvKjfqS1SuS2FnqobbyrBFd_Q4m/preview
+        IsVideo: true
+      - Url: https://raw.githubusercontent.com/HalalaiMircea/CG-Course/master/Project3D/img/vid-thumbnail.png
+    Description: |
+      At the end of the Computer Graphics course we had to develop a 3D project.
+      I made 3D Model Viewer - a small OBJ file renderer, with interactive controls: camera panning,
+      model rotation on the Y axis, zooming in and out.
+    GithubUrl: "https://github.com/HalalaiMircea/CG-Course"
+    BadgeIds: [ "c++", "opengl" ]

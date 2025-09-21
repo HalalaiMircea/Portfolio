@@ -1,0 +1,52 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/project-schema.json",
+  "title": "Project Document",
+  "type": "object",
+  "additionalProperties": {
+    "type": "array",
+    "items": {
+      "$ref": "#/$defs/ProjectEntry"
+    }
+  },
+  "$defs": {
+    "ProjectEntry": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Media": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Model" }
+        },
+        "Description": {
+          "type": "string"
+        },
+        "GithubUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "BadgeIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["Name", "Media", "Description", "GithubUrl", "BadgeIds"]
+    },
+    "Model": {
+      "type": "object",
+      "properties": {
+        "Url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "IsVideo": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": ["Url"]
+    }
+  }
+}

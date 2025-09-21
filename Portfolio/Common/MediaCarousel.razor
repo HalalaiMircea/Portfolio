@@ -1,9 +1,18 @@
-﻿<div class="position-relative text-center">
-    <img src="@ImagesSrc[currentIndex]" alt="Carousel image" style="max-width: 100%; max-height: 300px;" />
+﻿
+@if(Media.Length > 0)
+{<div class="position-relative text-center" style="height: 300px">
+    @*use display:none so all imgs are downloaded in the background, but for iframe un-render it due to no GDrive API available *@
+    @foreach ((Model s, int i) in Media.Select((s, i) => (s, i)))
+    {
+        @(s.IsVideo
+            ? i == currentIndex
+                ? @<iframe src=@s.Url class=@(currentIndex == i ? "show" : "d-none") allowfullscreen></iframe>
+                : null
+            : @<img src=@s.Url class=@(currentIndex == i ? "show" : "d-none") alt=""/>)
+    }
 
-    @*TODO: make transition fade-in anims*@
     <div class="dots">
-        @for (var i = 0; i < ImagesSrc.Length; i++)
+        @for (var i = 0; i < Media.Length; i++)
         {
             int i1 = i;
             <span @onclick="() => GoToSlide(i1)" class=@(currentIndex == i1 ? "active" : null)></span>
@@ -14,31 +23,47 @@
 <div class="d-flex justify-content-center">
     <button @onclick="Previous">◀</button>
     <button @onclick="Next">▶</button>
-</div>
+</div>}
 
 @code {
     private int currentIndex = 0;
 
     [Parameter]
-    public required string[] ImagesSrc { get; set; }
+    public required Model[] Media { get; set; }
 
     protected override void OnParametersSet()
     {
-        ImagesSrc = ImagesSrc.Select(s => !s.StartsWith("http") ? "img/" + s : s).ToArray();
+        // If relative, append img/
+        Media = Media.Select(s => !s.Url.StartsWith("http") && !s.IsVideo
+            ? new Model($"img/{s.Url}")
+            : s
+        ).ToArray();
+        currentIndex = 0;
     }
 
     private void Previous()
     {
-        currentIndex = (currentIndex - 1 + ImagesSrc.Length) % ImagesSrc.Length;
+        currentIndex = (currentIndex - 1 + Media.Length) % Media.Length;
     }
 
     private void Next()
     {
-        currentIndex = (currentIndex + 1) % ImagesSrc.Length;
+        currentIndex = (currentIndex + 1) % Media.Length;
     }
 
     private void GoToSlide(int idx)
     {
         currentIndex = idx;
     }
+
+    public record Model(string Url, bool IsVideo = false);
+    /*public class Model
+    {
+        public required string Url { get; init; }
+
+        [DefaultValue(false)]
+        // [YamlMember(DefaultValuesHandling = DefaultValuesHandling.OmitDefaults)]
+        public bool IsVideo { get; init; }
+    }*/
+
 }

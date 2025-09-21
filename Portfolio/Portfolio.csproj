@@ -9,9 +9,11 @@
     <!--todo: gitignore *.razor.css generated files-->
     <ItemGroup>
         <PackageReference Include="DartSassBuilder" Version="1.1.0"/>
+        <PackageReference Include="Json5Core" Version="1.0.12" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.16"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.16" PrivateAssets="all"/>
-        <PackageReference Include="KristofferStrube.Blazor.DOM" Version="0.3.0" />
+        <PackageReference Include="YamlDotNet" Version="16.3.0" />
+<!--        <PackageReference Include="KristofferStrube.Blazor.DOM" Version="0.3.0" />-->
     </ItemGroup>
 
     <ItemGroup>

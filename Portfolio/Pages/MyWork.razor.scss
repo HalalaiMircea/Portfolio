@@ -1,6 +1,46 @@
 ﻿
 nav {
   width: 250px;
-  background: url("img/vista-login.png") no-repeat left / cover;
+  background: linear-gradient(to bottom, #0163AB 0%, #008fb8 40%, #8cd1ad 100%);
 }
 
+nav {
+  $textColor: ghostwhite;
+
+  font-size: 15px;
+  color: $textColor;
+
+  a, a:hover, a:focus {
+    color: $textColor;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  li {
+    list-style-type: none;
+
+    &.active {
+      list-style-type: disc;
+      font-weight: bold;
+      &::marker {
+        color: ghostwhite;
+      }
+    }
+  }
+}
+
+article {
+ > * {
+   flex-shrink: 0;
+ }
+
+  a[role="button"] {
+    height: 32px; width: fit-content;
+    padding: 0.2em 0.5em;
+
+    img {
+      height: 100%;
+    }
+  }
+}

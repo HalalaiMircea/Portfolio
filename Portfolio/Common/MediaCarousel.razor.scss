@@ -18,3 +18,32 @@
     }
   }
 }
+
+img {
+  max-width: 100%; height: 100%;
+}
+iframe {
+  aspect-ratio: 16 / 9; height: 100%;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.show {
+  animation: fade 0.5s ease-in-out;
+}
+
+/*.fade {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+
+  .show {
+    opacity: 1;
+  }
+}*/

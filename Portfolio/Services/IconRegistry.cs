@@ -20,6 +20,7 @@ public class IconRegistry(HttpClient client)
             string[] viewBoxParts = node.Attributes["viewBox"]!.Value.Split(' ');
             _idAspectRatioMap[id] = $"calc({viewBoxParts[^2]}/{viewBoxParts[^1]})";
         }
+        Console.WriteLine("SVG Sprite sheet IDs: " + string.Join(" ", IconIds));
     }
 
     public MarkupString GetIcon(string id, string? height = "auto")

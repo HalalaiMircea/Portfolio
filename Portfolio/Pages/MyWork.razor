@@ -1,44 +1,105 @@
-﻿@using Portfolio.Services
+﻿@using System.Text.Json
+@using Json5Core
+@using Portfolio.Services
 @using Portfolio.Common
+@using YamlDotNet.Serialization
 
 <PageTitle>My Work</PageTitle>
 
 <div class="d-flex h-100">
-    <nav class="flex-shrink-0 p-2">
-
+    <nav class="flex-shrink-0 ps-3 pt-2">
+        @foreach ((string? category, var projEntry) in catalog)
+        {
+            <details open>
+                <summary>@category</summary>
+                <ul>
+                    @foreach (ProjectEntry entry in projEntry)
+                    {
+                        <li class=@(entry == selectedProj ? "active" : null)>
+                            <a href @onclick="() => selectedProj = entry">@entry.Name</a>
+                        </li>
+                    }
+                </ul>
+            </details>
+        }
     </nav>
-    @*<div class="flex-grow-1 p-2">
-        <h5 class="text-center">Here's some of the technologies I've used at some point</h5>
-        <hr>
-        <div class="d-flex flex-wrap gap-2">
-            @foreach (var id in iconReg.IconIds)
-            {
-                @iconReg.GetIcon(id, "30px")
-            }
-        </div>
-    </div>*@
-    <div class="flex-grow-1 p-2 d-flex flex-column">
-        <MediaCarousel ImagesSrc="images" />
-        <h4>Description</h4>
-        <p>This project is so cool because bla blah</p>
+    <article class="flex-grow-1 p-2 d-flex flex-column has-scrollbar overflow-auto">
+        @if (selectedProj is null)
+        {
+            <h5 class="text-center">Here's some of the technologies I've used at some point</h5>
+            <hr>
+            <div class="d-flex flex-wrap gap-2">
+                @foreach (var id in iconReg.IconIds)
+                {
+                    @iconReg.GetIcon(id, "30px")
+                }
+            </div>
+        }
+        else
+        {
+            <div class="d-flex justify-content-between">
+                <h3>@selectedProj.Name</h3>
+                <a role="button" href=@selectedProj.GithubUrl target="_blank">
+                    <img src="img/github-mark.svg" alt=""> Github
+                </a>
+            </div>
+            <MediaCarousel Media=@selectedProj.Media/>
 
-        <h4>Tech stack</h4>
-        <p>my Technologies</p>
-    </div>
+            <h4>Description</h4>
+            <p>@FormatNewLine(selectedProj.Description)</p>
+
+            <h4>Tech Stack</h4>
+            <div class="d-flex flex-wrap gap-2">
+                @foreach (var id in selectedProj.BadgeIds)
+                {
+                    @iconReg.GetIcon(id, "30px")
+                }
+            </div>
+        }
+    </article>
 </div>
 
 @inject IconRegistry iconReg;
+@inject HttpClient http;
 
 @code {
+    private Dictionary<string, ProjectEntry[]> catalog = [];
+    private ProjectEntry? selectedProj { get; set; }
 
-    /*TODO: make data structure mapped to left nav menu*/
+    protected override async Task OnInitializedAsync()
+    {
+        /*string yamlContent = await http.GetStringAsync("myworkcatalog.yaml");
+        Console.WriteLine(yamlContent);
+        IDeserializer yamlDeserializer = new DeserializerBuilder()
+            .IgnoreUnmatchedProperties()
+            .Build();
+        catalog = yamlDeserializer.Deserialize<Dictionary<string, ProjectEntry[]>>(
+            yamlContent
+        );*/
+        string json5Content = await http.GetStringAsync("myworkcatalog.json5");
 
-    private string[] images =
-    [
-        "profile.jpeg",
-        "lan_day.jpg",
-        "lan_night.jpg",
-        "https://raw.githubusercontent.com/HalalaiMircea/CG-Course/master/Project3D/img/vid-thumbnail.png"
-    ];
+        var obj = (Dictionary<string, object>) Json5.Parse(json5Content);
+        obj.Remove("$schema");
+        catalog = JsonSerializer.Deserialize<Dictionary<string, ProjectEntry[]>>(Json5.Serialize(obj))!;
+    }
+
+    private MarkupString FormatNewLine(string str) => new(str.Replace("\n", "<br>"));
+
+    public record ProjectEntry(
+        string Name,
+        MediaCarousel.Model[] Media,
+        string Description,
+        string GithubUrl,
+        string[] BadgeIds
+    );
+
+    /*public class ProjectEntry
+    {
+        public required string Name { get; init; }
+        public required MediaCarousel.Model[] Media { get; init; }
+        public required string Description { get; init; }
+        public required string GithubUrl { get; init; }
+        public required string[] BadgeIds { get; init; }
+    }*/
 
 }
