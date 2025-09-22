@@ -22,31 +22,23 @@ jobs:
 
       - name: Setup .NET (global.json)
         uses: actions/setup-dotnet@v4
+      # Need for race condition for Razor scoped sass -> css issue with just using publish...
+      - name: Build and Publish
+        run: dotnet build -c Release && dotnet publish Portfolio/Portfolio.csproj --no-build -c Release -o release
 
-      - name: Build  
-        run: dotnet build Portfolio/Portfolio.csproj -c Release
-
-      - name: Publish
-        run: dotnet publish Portfolio/Portfolio.csproj -c Release -o release
-
-      - name: Debug CSS generation
-        run: |
-          echo "----- Source generated razor.css files -----"
-          find Portfolio/ -name "*.razor.css" | sort
-          
-          echo ""
-          echo "----- Scoped compiled rz.scp.css files in obj/ -----"
-          find Portfolio/ -name "*.rz.scp.css" | sort
-          
-          echo ""
-          echo "----- Published bundle -----"
-          find release/wwwroot -name "*.css" | sort
-          
-          echo ""
-          echo "----- STYLES.CSS HEAD -----"
-          head -n 50 release/wwwroot/css/styles.css || true
-          echo "----- STYLES.CSS TAIL -----"
-          tail -n 50 release/wwwroot/css/styles.css || true
+#      - name: Debug CSS generation
+#        run: |
+#          echo "----- Source generated razor.css files -----"
+#          find Portfolio/ -name "*.razor.css" | sort
+#          
+#          echo ""
+#          echo "----- Scoped compiled rz.scp.css files in obj/ -----"
+#          find Portfolio/ -name "*.rz.scp.css" | sort
+#          
+#          echo ""
+#          echo "----- Published bundle -----"
+#          find release/wwwroot -name "*.css" | sort
+#          
 
       - name: Add .nojekyll file
         run: touch release/wwwroot/.nojekyll
