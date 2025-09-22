@@ -24,7 +24,26 @@ jobs:
         uses: actions/setup-dotnet@v4
 
       - name: Publish
-        run: dotnet publish -c Release -o release
+        run: dotnet publish Portfolio/Portfolio.csproj -c Release -o release
+
+      - name: Debug CSS generation
+        run: |
+          echo "----- Source generated razor.css files -----"
+          find Portfolio/ -name "*.razor.css" | sort
+          
+          echo ""
+          echo "----- Scoped compiled rz.scp.css files in obj/ -----"
+          find Portfolio/ -name "*.rz.scp.css" | sort
+          
+          echo ""
+          echo "----- Published bundle -----"
+          find release/wwwroot -name "*.css" | sort
+          
+          echo ""
+          echo "----- STYLES.CSS HEAD -----"
+          head -n 50 release/wwwroot/css/styles.css || true
+          echo "----- STYLES.CSS TAIL -----"
+          tail -n 50 release/wwwroot/css/styles.css || true
 
       - name: Add .nojekyll file
         run: touch release/wwwroot/.nojekyll
