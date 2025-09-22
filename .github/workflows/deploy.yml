@@ -22,9 +22,10 @@ jobs:
 
       - name: Setup .NET (global.json)
         uses: actions/setup-dotnet@v4
-      # Need for race condition for Razor scoped sass -> css issue with just using publish...
+
+      # Some race condition from DartSassBuilder and 1st build requires 2 builds (publish does the 2nd)
       - name: Build and Publish
-        run: dotnet build -c Release && dotnet publish Portfolio/Portfolio.csproj --no-build -c Release -o release
+        run: dotnet build -c Release && dotnet publish Portfolio/Portfolio.csproj -c Release -o release
 
 #      - name: Debug CSS generation
 #        run: |
@@ -38,7 +39,6 @@ jobs:
 #          echo ""
 #          echo "----- Published bundle -----"
 #          find release/wwwroot -name "*.css" | sort
-#          
 
       - name: Add .nojekyll file
         run: touch release/wwwroot/.nojekyll
