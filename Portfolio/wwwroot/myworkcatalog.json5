@@ -40,8 +40,8 @@ Powered by WPF, Edge WebView2 and ASP.net",
         {Url: "https://drive.google.com/file/d/1BwHnhlvKjfqS1SuS2FnqobbyrBFd_Q4m/preview", IsVideo: true},
         {Url: "https://raw.githubusercontent.com/HalalaiMircea/CG-Course/master/Project3D/img/vid-thumbnail.png"}
       ],
-      Description: "At the end of the Computer Graphics course we had to develop a 3D project.\
-I made 3D Model Viewer - a small OBJ file renderer, with interactive controls: camera panning,\
+      Description: "At the end of the Computer Graphics course we had to develop a 3D project. \
+I made 3D Model Viewer - a small OBJ file renderer, with interactive controls: camera panning, \
 model rotation on the Y axis, zooming in and out.",
       GithubUrl: "https://github.com/HalalaiMircea/CG-Course",
       BadgeIds: ["c++", "opengl"]

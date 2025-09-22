@@ -16,7 +16,7 @@
                     @foreach (ProjectEntry entry in projEntry)
                     {
                         <li class=@(entry == selectedProj ? "active" : null)>
-                            <a href @onclick="() => selectedProj = entry">@entry.Name</a>
+                            <a href="#" @onclick:preventDefault="true" @onclick="() => selectedProj = entry">@entry.Name</a>
                         </li>
                     }
                 </ul>

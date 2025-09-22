@@ -4,3 +4,5 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 Portfolio.sln.DotSettings.user
+# Generated at build-time by DartSassBuilder from .scss files
+*.razor.css

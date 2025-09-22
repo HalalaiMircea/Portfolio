@@ -6,7 +6,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
-    <!--todo: gitignore *.razor.css generated files-->
     <ItemGroup>
         <PackageReference Include="DartSassBuilder" Version="1.1.0"/>
         <PackageReference Include="Json5Core" Version="1.0.12" />
@@ -17,9 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Update="Pages\Home.razor.css">
-            <DependentUpon>Home.razor.scss</DependentUpon>
-        </Content>
         <Content Remove="wwwroot\raw-svg\**" />
     </ItemGroup>
 
