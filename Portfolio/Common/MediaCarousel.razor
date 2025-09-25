@@ -1,29 +1,26 @@
 ﻿
-@if(Media.Length > 0)
-{<div class="position-relative text-center" style="height: 300px">
-    @*use display:none so all imgs are downloaded in the background, but for iframe un-render it due to no GDrive API available *@
-    @foreach ((Model s, int i) in Media.Select((s, i) => (s, i)))
-    {
-        @(s.IsVideo
-            ? i == currentIndex
-                ? @<iframe src=@s.Url class=@(currentIndex == i ? "show" : "d-none") allowfullscreen></iframe>
-                : null
-            : @<img src=@s.Url class=@(currentIndex == i ? "show" : "d-none") alt=""/>)
-    }
-
-    <div class="dots">
-        @for (var i = 0; i < Media.Length; i++)
+@if (Media.Length > 0)
+{
+    <div class="position-relative text-center" style="height: 300px">
+        @foreach ((Model s, int i) in Media.Select((s, i) => (s, i)))
         {
-            int i1 = i;
-            <span @onclick="() => GoToSlide(i1)" class=@(currentIndex == i1 ? "active" : null)></span>
+            @RenderImageOrIFrame(s, i);
         }
+        <div class="dots">
+            @for (var i = 0; i < Media.Length; i++)
+            {
+                int i1 = i;
+                <span @onclick="() => currentIndex = i1" class=@(currentIndex == i1 ? "active" : null)></span>
+            }
+        </div>
     </div>
-</div>
+    <div class="d-flex justify-content-center">
+        <button @onclick="Previous">◀</button>
+        <button @onclick="Next">▶</button>
+    </div>
+}
 
-<div class="d-flex justify-content-center">
-    <button @onclick="Previous">◀</button>
-    <button @onclick="Next">▶</button>
-</div>}
+@inject PhotoViewer.Service PhotoViewerService;
 
 @code {
     private int currentIndex = 0;
@@ -51,9 +48,17 @@
         currentIndex = (currentIndex + 1) % Media.Length;
     }
 
-    private void GoToSlide(int idx)
+    ///use display:none so all imgs are downloaded in the background, but for iframe un-render it due to no GDrive API available
+    private RenderFragment RenderImageOrIFrame(Model s, int i)
     {
-        currentIndex = idx;
+        string clazz = currentIndex == i ? "show" : "d-none";
+        if (s.IsVideo)
+        {
+            return i == currentIndex
+                ? @<iframe src="@s.Url" class="@clazz" allowfullscreen></iframe>
+                : null;
+        }
+        return @<img src="@s.Url" class="@clazz" alt="" @onclick="() => PhotoViewerService.Show(s.Url, null)"/>;
     }
 
     public record Model(string Url, bool IsVideo = false);

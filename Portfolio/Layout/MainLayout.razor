@@ -1,19 +1,8 @@
-﻿@inherits LayoutComponentBase
-@*<div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
+﻿@using Portfolio.Common
+@inherits LayoutComponentBase
 
-    <main class="win7">
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>*@
 <div class="win7">
     @Body
+    <PhotoViewer />
 </div>

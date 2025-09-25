@@ -1,0 +1,65 @@
+﻿
+<div class="window glass active @(Url is null ? "d-none" : "" )" style="width: 100vw;height: 100vh;top: 0;left: 0;position: fixed">
+    <div class="title-bar">
+        <div class="title-bar-text">@Title - Photo Viewer</div>
+        <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button aria-label="Close" @onclick="Close"></button>
+        </div>
+    </div>
+    <div class="window-body">
+        <img src="@Url" alt="Photo Viewer image">
+    </div>
+    <div>
+        @foreach (string ctrlIcon in controls)
+        {
+            <span class="control @ctrlIcon"></span>
+        }
+    </div>
+</div>
+
+
+
+@inject Service _service;
+
+@code {
+    private readonly string[] controls = ["zoom", "fit", "prev", "center", "next", "ranticlock", "rclock", "cross"];
+    private string? Url { get; set; }
+    private string? Title { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _service.OnShow += (url, title) =>
+        {
+            Url = url;
+            Title = title;
+            InvokeAsync(StateHasChanged);
+        };
+        _service.OnClose += () =>
+        {
+            Url = null;
+            Title = null;
+            InvokeAsync(StateHasChanged);
+        };
+    }
+
+    private void Close() => _service.Close();
+
+    public class Service
+    {
+        public event Action<string, string?>? OnShow;
+        public event Action? OnClose;
+
+        public void Show(string url, string? title)
+        {
+            OnShow?.Invoke(url, title);
+        }
+
+        public void Close()
+        {
+            OnClose?.Invoke();
+        }
+    }
+
+}

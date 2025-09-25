@@ -1,0 +1,96 @@
+﻿.window-body {
+  height: calc(100% - 100px);
+}
+
+img {
+  height: 100%;
+}
+
+.control {
+  display: inline-block;
+  background-repeat: no-repeat;
+  
+  &.center {
+    width: 42px; height: 42px;
+    background-position: -45px -3px;
+    background-image: url('img/photoviewer/center.png');
+
+    &.disabled {
+      background-position: -1px -3px;
+    }
+    &:hover:not(.disabled) {
+      background-position: -89px -3px;
+    }
+    &:active:not(.disabled) {
+      background-position: -133px -3px;
+    }
+  }
+
+  &.cross { background-image: url('img/photoviewer/cross.png'); }
+  &.next  { background-image: url('img/photoviewer/next.png'); }
+  &.prev  { background-image: url('img/photoviewer/prev.png'); }
+  &.ranticlock { background-image: url('img/photoviewer/ranticlock.png'); }
+  &.rclock     { background-image: url('img/photoviewer/rclock.png'); }
+
+  &.fit {
+    width: 27px; height: 25px;
+    background-position: -27px 0;
+    background-image: url('img/photoviewer/fit.png');
+
+    &.disabled {
+      background-position: 0 0;
+    }
+    &:hover:not(.disabled) {
+      background-position: -54px 0;
+    }
+    &:active:not(.disabled) {
+      background-position: -81px 0;
+    }
+  }
+
+  &.prev, &.next {
+    width: 51px; height: 25px;
+    background-position: -51px 0;
+
+    &.disabled {
+      background-position: 0 0;
+    }
+    &:hover:not(.disabled) {
+      background-position: -102px 0;
+    }
+    &:active:not(.disabled) {
+      background-position: -153px 0;
+    }
+  }
+
+  &.ranticlock, &.rclock, &.cross {
+    width: 25px; height: 25px;
+    background-position: -25px 0;
+
+    &.disabled {
+      background-position: 0 0;
+    }
+    &:hover:not(.disabled) {
+      background-position: -50px 0;
+    }
+    &:active:not(.disabled) {
+      background-position: -75px 0;
+    }
+  }
+
+  &.zoom {
+    width: 37px; height: 25px;
+    background-image: url('img/photoviewer/zoom.png');
+    background-position: -37px 0;
+
+    &.disabled {
+      background-position: 0 0;
+    }
+    &:hover:not(.disabled) {
+      background-position: -74px 0;
+    }
+    &:active:not(.disabled) {
+      background-position: -111px 0;
+    }
+  }
+}
