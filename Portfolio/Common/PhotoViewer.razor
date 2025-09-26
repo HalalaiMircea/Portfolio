@@ -3,28 +3,34 @@
     <div class="title-bar">
         <div class="title-bar-text">@Title - Photo Viewer</div>
         <div class="title-bar-controls">
-            <button aria-label="Minimize"></button>
-            <button aria-label="Maximize"></button>
+            <button aria-label="Minimize" disabled></button>
+            <button aria-label="Maximize" disabled></button>
             <button aria-label="Close" @onclick="Close"></button>
         </div>
     </div>
     <div class="window-body">
-        <img src="@Url" alt="Photo Viewer image">
+        <ul role="menubar">
+            @foreach (var item in menuItems)
+            {
+                <li role="menuitem" tabindex="0">@item</li>
+            }
+        </ul>
+        <img src="@Url" alt="Photo Viewer image" draggable="false" class="user-select-none">
     </div>
-    <div>
-        @foreach (string ctrlIcon in controls)
-        {
-            <span class="control @ctrlIcon"></span>
-        }
-    </div>
+        <div class="control-bar">
+            @foreach (string ctrlIcon in controls)
+            {
+                <span class="@ctrlIcon"></span>
+            }
+        </div>
 </div>
-
 
 
 @inject Service _service;
 
 @code {
     private readonly string[] controls = ["zoom", "fit", "prev", "center", "next", "ranticlock", "rclock", "cross"];
+    private readonly string[] menuItems = ["File", "Print", "E-mail", "Burn", "Open"];
     private string? Url { get; set; }
     private string? Title { get; set; }
 

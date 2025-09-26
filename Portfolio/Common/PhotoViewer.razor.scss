@@ -1,96 +1,119 @@
-﻿.window-body {
-  height: calc(100% - 100px);
+﻿.window {
+  display: flex;
+  flex-direction: column;
 }
 
-img {
-  height: 100%;
+.window-body {
+  flex: 1 1 auto; /* grows and shrinks to fill space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  img {
+    flex: 1 1 auto;
+    height: 1px; /*black magic ... don't change*/
+    object-fit: contain; /* preserve aspect ratio, contain inside area */
+  }
 }
 
-.control {
-  display: inline-block;
-  background-repeat: no-repeat;
-  
-  &.center {
-    width: 42px; height: 42px;
-    background-position: -45px -3px;
-    background-image: url('img/photoviewer/center.png');
+.control-bar {
+  width: fit-content;
+  margin: 0 auto 6px;
+  padding: 2px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
 
-    &.disabled {
-      background-position: -1px -3px;
-    }
-    &:hover:not(.disabled) {
-      background-position: -89px -3px;
-    }
-    &:active:not(.disabled) {
-      background-position: -133px -3px;
-    }
-  }
+  span {
+    background-repeat: no-repeat;
 
-  &.cross { background-image: url('img/photoviewer/cross.png'); }
-  &.next  { background-image: url('img/photoviewer/next.png'); }
-  &.prev  { background-image: url('img/photoviewer/prev.png'); }
-  &.ranticlock { background-image: url('img/photoviewer/ranticlock.png'); }
-  &.rclock     { background-image: url('img/photoviewer/rclock.png'); }
+    &.center {
+      width: 42px; height: 42px;
+      background-position: -45px -3px;
+      background-image: url('img/photoviewer/center.png');
 
-  &.fit {
-    width: 27px; height: 25px;
-    background-position: -27px 0;
-    background-image: url('img/photoviewer/fit.png');
+      &.disabled {
+        background-position: -1px -3px;
+      }
+      &:hover:not(.disabled) {
+        background-position: -89px -3px;
+      }
+      &:active:not(.disabled) {
+        background-position: -133px -3px;
+      }
+    }
 
-    &.disabled {
-      background-position: 0 0;
-    }
-    &:hover:not(.disabled) {
-      background-position: -54px 0;
-    }
-    &:active:not(.disabled) {
-      background-position: -81px 0;
-    }
-  }
+    &.cross { background-image: url('img/photoviewer/cross.png'); }
+    &.next  { background-image: url('img/photoviewer/next.png'); }
+    &.prev  { background-image: url('img/photoviewer/prev.png'); }
+    &.ranticlock { background-image: url('img/photoviewer/ranticlock.png'); }
+    &.rclock     { background-image: url('img/photoviewer/rclock.png'); }
 
-  &.prev, &.next {
-    width: 51px; height: 25px;
-    background-position: -51px 0;
+    &.fit {
+      width: 27px; height: 25px;
+      margin: 0 1em;
+      background-position: -27px 0;
+      background-image: url('img/photoviewer/fit.png');
 
-    &.disabled {
-      background-position: 0 0;
+      &.disabled {
+        background-position: 0 0;
+      }
+      &:hover:not(.disabled) {
+        background-position: -54px 0;
+      }
+      &:active:not(.disabled) {
+        background-position: -81px 0;
+      }
     }
-    &:hover:not(.disabled) {
-      background-position: -102px 0;
-    }
-    &:active:not(.disabled) {
-      background-position: -153px 0;
-    }
-  }
 
-  &.ranticlock, &.rclock, &.cross {
-    width: 25px; height: 25px;
-    background-position: -25px 0;
+    &.prev, &.next {
+      width: 51px; height: 25px;
+      background-position: -51px 0;
 
-    &.disabled {
-      background-position: 0 0;
+      &.disabled {
+        background-position: 0 0;
+      }
+      &:hover:not(.disabled) {
+        background-position: -102px 0;
+      }
+      &:active:not(.disabled) {
+        background-position: -153px 0;
+      }
     }
-    &:hover:not(.disabled) {
-      background-position: -50px 0;
-    }
-    &:active:not(.disabled) {
-      background-position: -75px 0;
-    }
-  }
 
-  &.zoom {
-    width: 37px; height: 25px;
-    background-image: url('img/photoviewer/zoom.png');
-    background-position: -37px 0;
+    &.ranticlock, &.rclock, &.cross {
+      width: 25px; height: 25px;
+      background-position: -25px 0;
+      margin: 0 .5em;
 
-    &.disabled {
-      background-position: 0 0;
+      &.disabled {
+        background-position: 0 0;
+      }
+      &:hover:not(.disabled) {
+        background-position: -50px 0;
+      }
+      &:active:not(.disabled) {
+        background-position: -75px 0;
+      }
     }
-    &:hover:not(.disabled) {
-      background-position: -74px 0;
-    }
-    &:active:not(.disabled) {
-      background-position: -111px 0;
+
+    &.zoom {
+      width: 37px; height: 25px;
+      margin: 0 1em;
+      background-image: url('img/photoviewer/zoom.png');
+      background-position: -37px 0;
+
+      &.disabled {
+        background-position: 0 0;
+      }
+      &:hover:not(.disabled) {
+        background-position: -74px 0;
+      }
+      &:active:not(.disabled) {
+        background-position: -111px 0;
+      }
     }
   }
 }
