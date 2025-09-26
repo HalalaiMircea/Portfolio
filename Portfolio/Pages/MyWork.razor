@@ -1,8 +1,7 @@
 ﻿@using System.Text.Json
-@using Json5Core
 @using Portfolio.Services
 @using Portfolio.Common
-@using YamlDotNet.Serialization
+@using YamlDotNet.RepresentationModel
 
 <PageTitle>My Work</PageTitle>
 
@@ -63,24 +62,58 @@
 @inject HttpClient http;
 
 @code {
-    private Dictionary<string, ProjectEntry[]> catalog = [];
+    private Dictionary<string, ProjectEntry[]> catalog = new();
     private ProjectEntry? selectedProj { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        /*string yamlContent = await http.GetStringAsync("myworkcatalog.yaml");
-        Console.WriteLine(yamlContent);
-        IDeserializer yamlDeserializer = new DeserializerBuilder()
-            .IgnoreUnmatchedProperties()
-            .Build();
-        catalog = yamlDeserializer.Deserialize<Dictionary<string, ProjectEntry[]>>(
-            yamlContent
-        );*/
-        string json5Content = await http.GetStringAsync("myworkcatalog.json5");
+        string yaml = await http.GetStringAsync("myworkcatalog.yaml");
+        string json = GetJsonFromYaml(yaml);
+        catalog = JsonSerializer.Deserialize<Dictionary<string, ProjectEntry[]>>(json)!;
+        // catalog = YamlRecords.Deserialize<Dictionary<string, ProjectEntry[]>>(yamlContent);
+        /*string json5Content = await http.GetStringAsync("myworkcatalog.json5");
 
         var obj = (Dictionary<string, object>) Json5.Parse(json5Content);
         obj.Remove("$schema");
-        catalog = JsonSerializer.Deserialize<Dictionary<string, ProjectEntry[]>>(Json5.Serialize(obj))!;
+        catalog = JsonSerializer.Deserialize<Dictionary<string, ProjectEntry[]>>(Json5.Serialize(obj))!;*/
+    }
+    
+    private string GetJsonFromYaml(string inputYaml)
+    {
+        var yamlStream = new YamlStream();
+        yamlStream.Load(new StringReader(inputYaml));
+        return JsonSerializer.Serialize(ConvertYamlNode(yamlStream.Documents[0].RootNode));
+    }
+
+    /// Custom recursive parser... Default YamlDotNet object deserializer doesn't respect false/true keywords, treats them as string...
+    private object? ConvertYamlNode(YamlNode node)
+    {
+        switch (node)
+        {
+            case YamlScalarNode scalar:
+                // Try to coerce to bool, int, double, or null
+                if (bool.TryParse(scalar.Value, out var b))
+                    return b;
+                if (int.TryParse(scalar.Value, out var i))
+                    return i;
+                if (double.TryParse(scalar.Value, out var d))
+                    return d;
+                if (string.Equals(scalar.Value, "null", StringComparison.OrdinalIgnoreCase) || scalar.Value == "~")
+                    return null;
+                return scalar.Value;
+
+            case YamlMappingNode map:
+                return map.Children.ToDictionary(
+                    kvp => ((YamlScalarNode)kvp.Key).Value!,
+                    kvp => ConvertYamlNode(kvp.Value)
+                );
+
+            case YamlSequenceNode seq:
+                return seq.Children.Select(ConvertYamlNode).ToList();
+
+            default:
+                return null;
+        }
     }
 
     private MarkupString FormatNewLine(string str) => new(str.Replace("\n", "<br>"));
