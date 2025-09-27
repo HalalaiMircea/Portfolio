@@ -32,7 +32,7 @@
     {
         // If relative, append img/
         Media = Media.Select(s => !s.Url.StartsWith("http") && !s.IsVideo
-            ? new Model($"img/{s.Url}")
+            ? new Model($"content/{s.Url}")
             : s
         ).ToArray();
         currentIndex = 0;

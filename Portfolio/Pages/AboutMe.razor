@@ -3,7 +3,7 @@
 <div class="window glass float-start me-3 mb-2" style="margin-top: calc((-250px - 12px) / 2)">
     <img
         style="width: 250px; height: 250px; margin: 6px; border-radius: 6px;"
-        src="img/profile.jpeg"
+        src="content/profile.jpeg"
         alt="profile">
 </div>
 
@@ -38,10 +38,10 @@
 <div class="d-flex flex-wrap gap-2">
     @foreach (var url in imageUrls)
     {
-        <img src=@url alt="" style="height: 200px; border-radius: 6px">
+        <img src="content/@url" alt="" style="height: 200px; border-radius: 6px">
     }
 </div>
 
 @code {
-    private readonly string[] imageUrls = ["img/lan_day.jpg", "img/lan_night.jpg"];
+    private readonly string[] imageUrls = ["lan_day.jpg", "lan_night.jpg"];
 }

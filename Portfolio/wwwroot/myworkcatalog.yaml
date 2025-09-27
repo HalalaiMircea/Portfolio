@@ -2,12 +2,12 @@
 Hackathons:
   - Name: Post It
     Media: []
-    Description: >
+    Description: |
       This was the project name from a hackathon organized by a company for hiring interns.
       They specialized in native mobile applications, so we had to make a "Post-it notes" app using their API,
       and Design specifications in terms of UI/UX.
     GithubUrl: "https://github.com/HalalaiMircea/Post-It"
-    BadgeIds: [ "Kotlin","Android" ]
+    BadgeIds: [ Kotlin, Android ]
 
 Personal Projects:
   - Name: TestReportsViewer
@@ -15,34 +15,92 @@ Personal Projects:
       - Url: work-trv-0.png
       - Url: work-trv-1.jpg
       - Url: work-trv-2.png
-    Description: >
+    Description: |
       I created this tool for previewing test reports at work before pushing to dev. The Unit test output window in
       Rider doesn't support HTML rendering, only plaintext, which made it very difficult to see the results,
       especially if a report had long tables. In those cases I had to wait up to 10 minutes before I could see the results.
 
       - Live html content updates in the selected report as the test client logs
-
       - Live updates also work with HTML tables rows
-
       - Auto scroll to bottom as new logs are injected
-
       - Reports are managed by the app and save on disk in AppData\Roaming folder, for later reviewing
-
       - Example C# client class, using NamePipes IPC
 
       Powered by WPF, Edge WebView2 and ASP.net
     GithubUrl: "https://github.com/HalalaiMircea/TestReportsViewer"
-    BadgeIds: [ "csharp","NET" ]
+    BadgeIds: [ csharp, NET ]
 
 University Projects:
-  - Name: 3D Model Viewer (CG Course)
+  - Name: CG | 3D Model Viewer
     Media:
       - Url: https://drive.google.com/file/d/1BwHnhlvKjfqS1SuS2FnqobbyrBFd_Q4m/preview
         IsVideo: true
       - Url: https://raw.githubusercontent.com/HalalaiMircea/CG-Course/master/Project3D/img/vid-thumbnail.png
-    Description: >
+    Description: |
       At the end of the Computer Graphics course we had to develop a 3D project.
       I made 3D Model Viewer - a small OBJ file renderer, with interactive controls: camera panning,
       model rotation on the Y axis, zooming in and out.
     GithubUrl: "https://github.com/HalalaiMircea/CG-Course"
-    BadgeIds: [ "c++", "opengl" ]
+    BadgeIds: [ c++, opengl ]
+
+  - Name: SmsOtp
+    Media:
+      - Url: smsotp0.jpg
+      - Url: smsotp1.jpg
+      - Url: smsotp2.jpg
+      - Url: smsotp3.jpg
+    Description: |
+      This is the project that introduced me to the world of Android native app development. It was suggested by my
+      mentor from DNSC for the 'Industrial Practice' uni course.
+      
+      SMSOTP is an Android application used for sending SMS messages from other devices over the HTTP protocol.
+      The app has an embedded web server which exposes a simple REST API for sending SMS messages. It also has a
+      simple SQLite database containing User and Command tables. The app also features a UI for managing user credentials.
+      
+      Special thanks to [NanoHTTPD](https://github.com/NanoHttpd/nanohttpd) a Java embeddable micro-server and
+      shoutout to Dumitru from DNSC
+    GithubUrl: "https://github.com/HalalaiMircea/SmsOtp"
+    BadgeIds: [ Java, Android, SQLite ]
+
+  - Name: IP | MeMeow
+    Media: [ ]
+    Description: |
+      A group project where we had to develop a fullstack app (with DB, backend and frontend) around the theme of _Gamification_.
+      Our idea was an app to create memes from image templates with a platform to post them on.
+      
+      It featured: XP, levels, a leaderboard, as well as a like/reaction system.
+      
+      Sadly the execution was not the best due to limited man power and time. Effectively only 2 out of 5 devs worked
+      on it - myself on the Android app and my friend on the Java Spring Boot backend. 
+    GithubUrl: "https://github.com/HalalaiMircea/MeMeow-Android"
+    BadgeIds: [ Kotlin, Android, Java ]
+
+  - Name: DAW | PcMAG2
+    Media: [ ]
+    Description: |
+      This course thought us how to develop fullstack web apps. For the project we could choose whatever we wanted, as
+      long as it was developed with ASP.NET and some frontend framework (Angular was the default).
+      
+      I chose to improve my previous **PcMAG** static vanilla JS site. An e-commerce website for a fictional brand.
+      This one added JWT-based auth, item search, categories, adding/removing products to/from the cart.
+    GithubUrl: "https://github.com/HalalaiMircea/PcMAG2"
+    BadgeIds: [ NET, csharp, Angular, SQLite ]
+
+  - Name: OOP | Mage Showdown
+    Media:
+      - Url: "https://raw.githubusercontent.com/AnitaMatei/Mage-Showdown/refs/heads/master/gifs/dungeon%20map%20demo.gif"
+      - Url: "https://raw.githubusercontent.com/AnitaMatei/Mage-Showdown/refs/heads/master/gifs/fantasy%20map%20demo.gif"
+      - Url: "https://raw.githubusercontent.com/AnitaMatei/Mage-Showdown/refs/heads/master/gifs/menu%20demo.gif"
+    Description: |
+      Early course for object-oriented programming in Java. For the final project I teamed-up with my friend to create a
+      PC multiplayer 2D game.
+      
+      A 2D multiplayer shooter with mages. You can cast ice and fire spells, depending on what orb you're currently using,
+      each type having a base spell and a bomb spell. Ice spells can freeze the opponent, whereas fire spells you can
+      cast more often and deal more damage per second with.
+      * java
+      * libgdx for graphics, input and logic
+      * box2d for physics
+      * kryonet for networking
+    GithubUrl: "https://github.com/AnitaMatei/Mage-Showdown"
+    BadgeIds: [ Java ]
