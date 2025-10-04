@@ -19,10 +19,10 @@ public class IconRegistry(HttpClient client, IJSRuntime js)
             // Attributes list cannot be null... old API
             string id = node.Attributes!["id"]!.Value;
             string[] viewBoxParts = node.Attributes["viewBox"]!.Value.Split(' ');
-            _idAspectRatioMap[id] = $"calc({viewBoxParts[^2]}/{viewBoxParts[^1]})";
+            _idAspectRatioMap[id] = $"{viewBoxParts[^2]}/{viewBoxParts[^1]}";
         }
         // inject raw sprite sheet into DOM
-        string svgXML = doc.GetElementsByTagName("svg")[0]!.OuterXml;
+        string svgXML = doc.DocumentElement!.OuterXml;
         await js.InvokeVoidAsync("embedSpriteSheet", svgXML);
 
         Console.WriteLine("SVG Sprite sheet IDs: " + string.Join(" ", IconIds));

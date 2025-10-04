@@ -7,7 +7,7 @@ nav {
 nav {
   $textColor: ghostwhite;
 
-  font-size: 15px;
+  font-size: 14px;
   color: $textColor;
 
   a, a:hover, a:focus {
@@ -17,23 +17,30 @@ nav {
   a:hover {
     text-decoration: underline;
   }
+  ul {
+    padding-left: 16px;
+  }
   li {
     list-style-type: none;
+    margin-bottom: 6px;
 
     &.active {
       list-style-type: disc;
       font-weight: bold;
       &::marker {
-        color: ghostwhite;
+        color: $textColor;
       }
     }
+  }
+  details > summary:before {
+    border-left-color: $textColor;
   }
 }
 
 article {
- > * {
-   flex-shrink: 0;
- }
+  > * {
+    flex-shrink: 0;
+  }
 
   a[role="button"] {
     height: 32px; width: fit-content;

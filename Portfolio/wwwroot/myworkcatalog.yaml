@@ -33,9 +33,9 @@ Personal Projects:
 University Projects:
   - Name: CG | 3D Model Viewer
     Media:
-      - Url: https://drive.google.com/file/d/1BwHnhlvKjfqS1SuS2FnqobbyrBFd_Q4m/preview
+      - Url: "https://drive.google.com/file/d/1BwHnhlvKjfqS1SuS2FnqobbyrBFd_Q4m/preview"
         IsVideo: true
-      - Url: https://raw.githubusercontent.com/HalalaiMircea/CG-Course/master/Project3D/img/vid-thumbnail.png
+      - Url: "https://raw.githubusercontent.com/HalalaiMircea/CG-Course/master/Project3D/img/vid-thumbnail.png"
     Description: |
       At the end of the Computer Graphics course we had to develop a 3D project.
       I made 3D Model Viewer - a small OBJ file renderer, with interactive controls: camera panning,

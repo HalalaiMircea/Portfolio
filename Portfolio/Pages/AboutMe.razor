@@ -1,4 +1,5 @@
-﻿<PageTitle>About me</PageTitle>
+﻿@using Portfolio.Common
+<PageTitle>About me</PageTitle>
 
 <div class="window glass float-start me-3 mb-2" style="margin-top: calc((-250px - 12px) / 2)">
     <img
@@ -38,9 +39,16 @@
 <div class="d-flex flex-wrap gap-2">
     @foreach (var url in imageUrls)
     {
-        <img src="content/@url" alt="" style="height: 200px; border-radius: 6px">
+        <img
+            src="content/@url"
+            alt=""
+            style="height: 200px; border-radius: 6px"
+            @onclick='() => PhotoViewer.Show("content/"+url, url)'
+        >
     }
 </div>
+
+@inject PhotoViewer.Service PhotoViewer
 
 @code {
     private readonly string[] imageUrls = ["lan_day.jpg", "lan_night.jpg"];

@@ -7,6 +7,11 @@
 
 <div class="d-flex h-100">
     <nav class="flex-shrink-0 ps-3 pt-2">
+        <ul>
+            <li class=@(selectedProj is null ? "active" : null)>
+                <a href="#" @onclick:preventDefault="true" @onclick="() => selectedProj = null">Home</a>
+            </li>
+        </ul>
         @foreach ((string? category, var projEntry) in catalog)
         {
             <details open>
@@ -26,6 +31,7 @@
         @if (selectedProj is null)
         {
             <h5 class="text-center">Here's some of the technologies I've used at some point</h5>
+            <p class="text-center">Use the side menu to see more about my projects</p>
             <hr>
             <div class="d-flex flex-wrap gap-2">
                 @foreach (var id in iconReg.IconIds)

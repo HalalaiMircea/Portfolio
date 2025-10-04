@@ -30,7 +30,7 @@
 
     protected override void OnParametersSet()
     {
-        // If relative, append img/
+        // If relative, append content/
         Media = Media.Select(s => !s.Url.StartsWith("http") && !s.IsVideo
             ? new Model($"content/{s.Url}")
             : s
