@@ -1,0 +1,26 @@
+﻿<Project>
+  <ItemGroup>
+    <!-- Optional: if using lock files -->
+    <DependencyFiles Include="packages.lock.json" Condition="Exists('packages.lock.json')"/>
+    <!-- The NuGet restore result -->
+    <DependencyFiles Include="$(MSBuildProjectDirectory)\obj\project.assets.json" Condition="Exists('obj/project.assets.json')"/>
+    <!-- Optional: if using central package management -->
+    <DependencyFiles Include="$(MSBuildProjectDirectory)\..\Directory.Packages.props"
+                     Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.Packages.props')"/>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <NoticesPath>$(MSBuildProjectDirectory)/wwwroot/content/THIRD-PARTY-NOTICES.md</NoticesPath>
+  </PropertyGroup>
+
+  <!-- Only re-run license generation if deps changed -->
+  <Target Name="GenerateThirdPartyNotices"
+          Inputs="@(DependencyFiles)"
+          Outputs="$(NoticesPath)"
+          BeforeTargets="Build">
+
+    <Message Text="Dependencies changed, regenerating THIRD-PARTY-NOTICES.md..." Importance="High"/>
+    <Exec Command="dotnet tool restore"/>
+    <Exec Command="dotnet tool run nuget-license --include-transitive -i $(MSBuildProjectFile) -o Markdown -fo $(NoticesPath)"/>
+  </Target>
+</Project>

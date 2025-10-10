@@ -1,8 +1,32 @@
 ﻿@using Portfolio.Common
+@using Portfolio.Pages
 @inherits LayoutComponentBase
 
 
 <div class="win7">
-    @Body
-    <PhotoViewer />
+    <CascadingValue Value="ShowLicenseWindow">
+        @Body
+    </CascadingValue>
+    @if (isLicenseWindowVisible)
+    {
+        <Licenses OnClose="CloseLicenseWindow"/>
+    }
+    <PhotoViewer/>
 </div>
+
+@code {
+    private bool isLicenseWindowVisible = false;
+
+    private void ShowLicenseWindow()
+    {
+        isLicenseWindowVisible = true;
+        StateHasChanged();
+    }
+    
+    private void CloseLicenseWindow()
+    {
+        isLicenseWindowVisible = false;
+        StateHasChanged();
+    }
+
+}

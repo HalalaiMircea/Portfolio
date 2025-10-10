@@ -1,0 +1,35 @@
+﻿@using Markdig
+
+<PageTitle>ASDASD</PageTitle>
+
+<div class="window glass active" style="width: 100vw;height: 100vh;top: 0;left: 0;position: fixed">
+    <div class="title-bar">
+        <div class="title-bar-text">Third Party License Notices</div>
+        <div class="title-bar-controls">
+            <button aria-label="Minimize" disabled></button>
+            <button aria-label="Maximize" disabled></button>
+            <button aria-label="Close" @onclick="OnClose"></button>
+        </div>
+    </div>
+    <div class="window-body has-scrollbar overflow-auto">
+        @((MarkupString) licenseTable)
+    </div>
+</div>
+
+@* TODO: width 100% 
+fit column content... up to max, after which wrap to next line
+ *@
+
+@inject MarkdownPipeline mdPipeline;
+@inject HttpClient http;
+
+@code {
+    [Parameter] public EventCallback OnClose { get; set; }
+    private string licenseTable = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        licenseTable = Markdown.ToHtml(await http.GetStringAsync("content/THIRD-PARTY-NOTICES.md"), mdPipeline);
+    }
+
+}

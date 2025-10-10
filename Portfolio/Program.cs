@@ -1,3 +1,4 @@
+using Markdig;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Portfolio;
@@ -11,6 +12,11 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddSingleton(sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
 builder.Services.AddSingleton<IconRegistry>();
 builder.Services.AddSingleton<PhotoViewer.Service>();
+builder.Services.AddSingleton(new MarkdownPipelineBuilder()
+    .UsePipeTables()
+    .UseAutoLinks()
+    .Build()
+);
 
 var host = builder.Build();
 

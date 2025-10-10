@@ -6,3 +6,6 @@ riderModule.iml
 Portfolio.sln.DotSettings.user
 # Generated at build-time by DartSassBuilder from .scss files
 *.razor.css
+
+# Generated from MSBuild
+THIRD-PARTY-NOTICES.md

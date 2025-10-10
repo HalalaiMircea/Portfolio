@@ -49,7 +49,7 @@
     }
 
     ///use display:none so all imgs are downloaded in the background, but for iframe un-render it due to no GDrive API available
-    private RenderFragment RenderImageOrIFrame(Model s, int i)
+    private RenderFragment? RenderImageOrIFrame(Model s, int i)
     {
         string clazz = currentIndex == i ? "show" : "d-none";
         if (s.IsVideo)

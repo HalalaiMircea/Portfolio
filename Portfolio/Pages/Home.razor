@@ -53,6 +53,9 @@
                     <button class="link-button" @onclick='() => ShowContent(Pages.MyWork)'>
                         <img src="img/Icon-CMD.png" alt=""/>View my work
                     </button>
+                    <button class="link-button" @onclick='() => ShowLicenseWindow?.Invoke()'>
+                        Third Party Notices
+                    </button>
                 </div>
                 break;
         }
@@ -63,6 +66,8 @@
 @inject IJSRuntime JS
 
 @code {
+    [CascadingParameter] public Action? ShowLicenseWindow { get; set; }
+
     private ElementReference windowRef;
     private IJSInProcessObjectReference module = null!;
     private DotNetObjectReference<Home>? dotNetObject;

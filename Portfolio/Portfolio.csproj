@@ -28,4 +28,6 @@
         <DartSassMessageLevel>High</DartSassMessageLevel>
     </PropertyGroup>
 
+    <Import Project="../GenerateThirdPartyNotices.targets" />
+
 </Project>
